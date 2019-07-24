@@ -364,9 +364,14 @@ module Interactor
           }
 
           let(:inherited) { Class.new(hooked) }
+          let(:deeply_inherited) { Class.new(Class.new(inherited)) }
 
-          it "inherites around hooks from parent class" do
+          it "inherits around hooks from parent class" do
             expect(inherited.around_hooks).to eq(hooked.around_hooks)
+          end
+
+          it "inherits around hooks from all ancestor classes" do
+            expect(deeply_inherited.around_hooks).to eq(hooked.around_hooks)
           end
 
           it "does not add hook to parent class" do
@@ -384,9 +389,14 @@ module Interactor
           }
 
           let(:inherited) { Class.new(hooked) }
+          let(:deeply_inherited) { Class.new(Class.new(inherited)) }
 
-          it "inherites before hooks from parent class" do
+          it "inherits before hooks from parent class" do
             expect(inherited.before_hooks).to eq(hooked.before_hooks)
+          end
+
+          it "inherits before hooks from all ancestor classes" do
+            expect(deeply_inherited.before_hooks).to eq(hooked.before_hooks)
           end
 
           it "does not add hook to parent class" do
@@ -404,9 +414,14 @@ module Interactor
           }
 
           let(:inherited) { Class.new(hooked) }
+          let(:deeply_inherited) { Class.new(Class.new(inherited)) }
 
-          it "inherites after hooks from parent class" do
+          it "inherits after hooks from parent class" do
             expect(inherited.after_hooks).to eq(hooked.after_hooks)
+          end
+
+          it "inherits after hooks from all ancestor classes" do
+            expect(deeply_inherited.before_hooks).to eq(hooked.before_hooks)
           end
 
           it "does not add hook to parent class" do
